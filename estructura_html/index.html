@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Clínica MSLS+ </title>
+<style>
+:root{
+  --bg:#0b2545;
+  --panel:rgba(12, 42, 78, 0.78);
+  --bubble-grad:linear-gradient(135deg, rgba(16, 62, 112, 0.58) 0%, rgba(42, 148, 189, 0.52) 100%);
+  --line:rgba(130, 225, 255, 0.45);
+  --glow:0 0 12px rgba(56, 189, 248, 0.22), inset 0 1px 2px rgba(255, 255, 255, 0.22);
+  --text:#ffffff;
+  --muted:#cde8f7;
+  --danger:#ff6b6b;
+  --warn:#fbbf24;
+  --r:24px;
+}
+*{box-sizing:border-box}
+html{font-size:18px}
+body{
+  margin:0;
+  min-height:100vh;
+  background-color:var(--bg);
+  background-image:url('Fondo_oscuro.jpg');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  line-height:1.45;
+}
+
+/* ---------- PORTADA PRINCIPAL MSLS+ ---------- */
+.portada{
+  min-height:100vh;
+  padding:28px 16px 48px;
+}
+.container-bienvenida{text-align:center;padding-top:6px}
+.burbuja-titulo{
+  display:inline-block;
+  padding:7px 26px;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(16, 62, 112, 0.72) 0%, rgba(42, 148, 189, 0.72) 100%);
+  border:1.5px solid rgba(130, 225, 255, 0.6);
+  box-shadow:0 0 14px rgba(56, 189, 248, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  backdrop-filter:blur(3px);
+}
+.burbuja-titulo h1{
+  font-size:26px;
+  color:#fff;
+  margin:0;
+}
+.logo-portada{
+  text-align:center;
+  margin-top:10px;
+}
+.logo-portada h1{
+  font-size:44px;
+  font-weight:700;
+  color:#fff;
+  margin:8px 0;
+  text-shadow:0 2px 14px rgba(6, 24, 48, 0.85), 0 0 20px rgba(11, 37, 69, 0.75);
+}
+.logo-portada i{color:#ff4d4d;font-style:normal}
+
+.seccion-info{
+  width:78%;
+  max-width:760px;
+  margin:22px auto 0;
+}
+.seccion-cercana{margin-top:14px}
+.seccion-info h2{
+  color:#fff;
+  margin:0 0 8px 4px;
+  text-align:left;
+  font-size:21px;
+  text-shadow:0 2px 10px rgba(6, 24, 48, 0.85);
+}
+.burbuja-texto{
+  border-radius:22px;
+  padding:14px 22px;
+  background:var(--bubble-grad);
+  border:1px solid var(--line);
+  box-shadow:var(--glow);
+  backdrop-filter:blur(3px);
+}
+.burbuja-texto p{
+  color:#f8fcff;
+  text-align:left;
+  font-size:15.5px;
+  margin:0;
+  line-height:1.5;
+  text-shadow:0 1px 4px rgba(6, 24, 48, 0.55);
+}
+
+.cta-wrap{text-align:center;margin-top:26px}
+.burbuja-cita{
+  display:inline-block;
+  border:1.5px solid rgba(155, 235, 255, 0.78);
+  padding:11px 30px;
+  border-radius:999px;
+  font:inherit;
+  font-size:17px;
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(90deg, rgba(20, 82, 140, 0.82) 0%, rgba(45, 168, 212, 0.82) 100%);
+  box-shadow:0 0 16px rgba(56, 189, 248, 0.38), inset 0 1px 3px rgba(255, 255, 255, 0.38);
+  backdrop-filter:blur(3px);
+  cursor:pointer;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.burbuja-cita:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 22px rgba(103, 232, 249, 0.6);
+}
+
+/* ---------- SISTEMA CLINAGENDA ---------- */
+.app{display:grid;grid-template-columns:270px 1fr;min-height:100vh}
+aside{
+  background:var(--panel);
+  border-right:1px solid var(--line);
+  backdrop-filter:blur(8px);
+  padding:20px 14px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+.logo{
+  font-weight:700;
+  font-size:1.15rem;
+  padding:6px 12px 18px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.logo i{
+  background:linear-gradient(135deg, #1d70b8, #38bdf8);
+  border:1px solid var(--line);
+  color:#fff;
+  width:34px;
+  height:34px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  font-style:normal;
+  box-shadow:0 0 12px rgba(56, 189, 248, 0.35);
+}
+nav button{
+  width:100%;
+  text-align:left;
+  background:transparent;
+  border:1.5px solid transparent;
+  color:var(--text);
+  font:inherit;
+  padding:12px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  transition:background .2s ease, border-color .2s ease;
+}
+nav button:hover{
+  background:rgba(42, 148, 189, 0.25);
+  border-color:rgba(130, 225, 255, 0.35);
+}
+nav button.on{
+  background:linear-gradient(90deg, rgba(16, 62, 112, 0.82) 0%, rgba(42, 148, 189, 0.78) 100%);
+  border-color:var(--line);
+  box-shadow:var(--glow);
+  font-weight:600;
+}
+.usuario{margin-top:auto;padding:12px}
+
+label{display:block;font-size:.85rem;color:var(--muted);margin:14px 0 6px}
+input,select{
+  width:100%;
+  min-height:52px;
+  font:inherit;
+  color:#fff;
+  background:rgba(10, 36, 68, 0.72);
+  border:1.5px solid rgba(130, 225, 255, 0.45);
+  border-radius:20px;
+  padding:10px 18px;
+  backdrop-filter:blur(4px);
+}
+select option{background:#0d2c52;color:#fff}
+input::placeholder{color:rgba(205, 232, 247, 0.65)}
+input:focus,select:focus,button:focus-visible{outline:3px solid #7dd3fc;outline-offset:2px}
+
+main{padding:32px 24px 64px;max-width:860px;width:100%;margin:0 auto}
+.barra-superior-main{display:flex;justify-content:flex-start;margin-bottom:12px}
+.btn-volver{
+  background:linear-gradient(90deg, rgba(16, 62, 112, 0.78) 0%, rgba(42, 148, 189, 0.74) 100%);
+  border:1.5px solid var(--line);
+  box-shadow:var(--glow);
+  color:#fff;
+  font:inherit;
+  font-size:.88rem;
+  font-weight:600;
+  padding:8px 20px;
+  border-radius:999px;
+  cursor:pointer;
+}
+.btn-volver:hover{border-color:#a5f3fc}
+
+main h1{
+  font-size:1.85rem;
+  margin:0 auto 8px;
+  text-align:center;
+  display:inline-block;
+  padding:6px 26px;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(16, 62, 112, 0.82) 0%, rgba(42, 148, 189, 0.78) 100%);
+  border:1.5px solid rgba(130, 225, 255, 0.6);
+  box-shadow:var(--glow);
+}
+.encabezado-vista{text-align:center}
+.sub{color:var(--muted);text-align:center;margin:8px 0 24px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+
+.card{
+  background:linear-gradient(135deg, rgba(16, 62, 112, 0.78) 0%, rgba(42, 148, 189, 0.72) 100%);
+  border:1.5px solid var(--line);
+  box-shadow:var(--glow);
+  backdrop-filter:blur(5px);
+  border-radius:var(--r);
+  padding:22px;
+  margin-bottom:16px;
+}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.btn{
+  width:100%;
+  min-height:56px;
+  border:1.5px solid rgba(155, 235, 255, 0.75);
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(20, 82, 140, 0.9) 0%, rgba(45, 168, 212, 0.9) 100%);
+  box-shadow:0 0 16px rgba(56, 189, 248, 0.4), inset 0 1px 3px rgba(255, 255, 255, 0.4);
+  color:#fff;
+  font:inherit;
+  font-weight:600;
+  font-size:1.05rem;
+  cursor:pointer;
+  margin-top:22px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 22px rgba(103, 232, 249, 0.65);
+}
+.btn:disabled{opacity:.6;cursor:wait}
+.btn.sec{
+  background:rgba(12, 42, 78, 0.65);
+  color:#fff;
+  border:1.5px solid var(--line);
+  box-shadow:none;
+  margin-top:10px;
+}
+
+.chico{
+  min-height:44px;
+  padding:0 20px;
+  border-radius:999px;
+  border:1.5px solid var(--line);
+  background:rgba(12, 42, 78, 0.65);
+  color:#fff;
+  font:inherit;
+  cursor:pointer;
+}
+.chico.peligro{border-color:var(--danger);color:#ffb4b4}
+.chico.ok{border-color:#67e8f9;color:#a5f3fc}
+
+.error{
+  background:rgba(239,68,68,.22);
+  border:1.5px solid var(--danger);
+  border-radius:18px;
+  padding:14px 16px;
+  margin-top:16px;
+}
+.error:empty{display:none}
+
+.dia{
+  display:inline-block;
+  color:#fff;
+  text-transform:capitalize;
+  margin:22px 4px 10px;
+  font-weight:600;
+  padding:4px 18px;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(16, 62, 112, 0.78) 0%, rgba(42, 148, 189, 0.74) 100%);
+  border:1px solid rgba(130, 225, 255, 0.45);
+}
+.cita{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.hora{font-size:1.5rem;font-weight:700;min-width:84px}
+.info{flex:1;min-width:180px}
+.info small{color:var(--muted);display:block}
+.chip{display:inline-block;padding:2px 12px;border-radius:999px;font-size:.8rem;margin-left:8px;background:var(--warn);color:#000}
+.cancelada{opacity:.7}.cancelada .hora,.cancelada .info b{text-decoration:line-through}
+.vacio{text-align:center;color:var(--muted);padding:40px 10px}
+.oculto{display:none!important}
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:90px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg, rgba(14, 48, 88, 0.95), rgba(28, 108, 148, 0.95));
+  border:1.5px solid var(--line);
+  color:#fff;
+  padding:14px 22px;
+  border-radius:999px;
+  display:flex;
+  gap:16px;
+  align-items:center;
+  box-shadow:0 8px 30px rgba(0,0,0,.45), 0 0 16px rgba(56, 189, 248, 0.35);
+  z-index:9;
+  max-width:92vw;
+}
+#toast button{background:none;border:0;color:#7dd3fc;font:inherit;font-weight:700;cursor:pointer;min-height:40px}
+
+@media (max-width:820px){
+  .app{grid-template-columns:1fr}
+  aside{
+    position:fixed;bottom:0;left:0;right:0;top:auto;height:auto;
+    flex-direction:row;padding:6px;z-index:5;
+    border-right:0;border-top:1px solid var(--line);
+  }
+  .logo,.usuario{display:none}
+  nav{display:flex;width:100%;gap:6px}
+  nav button{flex-direction:column;gap:2px;align-items:center;justify-content:center;font-size:.8rem;padding:8px;border-radius:18px}
+  main{padding:22px 14px 120px}
+  .fila{grid-template-columns:1fr}
+  .seccion-info{width:92%}
+  #toast{bottom:100px}
+}
+</style>
+</head>
+<body>
+
+<!-- PORTADA PRINCIPAL -->
+<div id="vista-portada" class="portada">
+  <div class="container-bienvenida">
+    <div class="burbuja-titulo">
+      <h1> Bienvenido a</h1>
+    </div>
+  </div>
+
+  <div class="logo-portada">
+    <h1> MSLS <i>+</i></h1>
+  </div>
+
+  <section class="seccion-info">
+    <h2> Visión </h2>
+    <div class="burbuja-texto">
+      <p>Ser la principal clínica de salud, ofreciendo servicios de calidad y atención personalizada a nuestros pacientes.</p>
+    </div>
+  </section>
+
+  <section class="seccion-info seccion-cercana">
+    <h2> A qué nos dedicamos </h2>
+    <div class="burbuja-texto">
+      <p>Ofrecemos atención médica integral, consultas preventivas y acompañamiento cercano para cuidar la salud de nuestros pacientes.</p>
+    </div>
+  </section>
+
+  <div class="cta-wrap">
+    <button type="button" class="burbuja-cita" id="b-agenda-ahora">Agenda tu cita ahora</button>
+  </div>
+</div>
+
+<!-- SISTEMA CLINAGENDA -->
+<div id="vista-sistema" class="app oculto">
+ <aside>
+  <div class="logo"><i>✚</i> ClinAgenda</div>
+  <nav>
+   <button data-v="nueva" class="on"><span></span> Nueva cita</button>
+   <button data-v="citas"><span></span> Citas</button>
+   <button data-v="pacientes"><span></span> Pacientes</button>
+  </nav>
+  <div class="usuario">
+   <label for="usuario">Quién está usando el sistema</label>
+   <select id="usuario">
+    <option>Rosa (recepción)</option><option>Recepción Centro</option>
+    <option>Recepción Norte</option><option>Recepción Sur</option><option> Dra. Paredes </option>
+   </select>
+  </div>
+ </aside>
+
+ <main>
+  <div class="barra-superior-main">
+    <button type="button" class="btn-volver" id="b-volver-portada">Volver al inicio</button>
+  </div>
+
+  <!-- NUEVA CITA -->
+  <section id="v-nueva">
+   <div class="encabezado-vista">
+     <h1>¿Para quién es la cita?</h1>
+     <p class="sub"> Ingrese los datos. Si algo no está bien, le diremos qué corregir sin borrar lo que escribió.</p>
+   </div>
+   <div class="card">
+    <label for="buscar">Buscar paciente (escriba parte del nombre)</label>
+    <input id="buscar" placeholder="Ejemplo: maria" autocomplete="off">
+    <label for="c-paciente">Paciente</label><select id="c-paciente"></select>
+    <div class="fila">
+     <div><label for="c-medico">Médico</label><select id="c-medico"></select></div>
+     <div><label for="c-clinica">Clínica</label><select id="c-clinica"></select></div>
+    </div>
+    <div class="fila">
+     <div><label for="c-fecha">Fecha</label><input type="date" id="c-fecha"></div>
+     <div><label for="c-hora">Hora</label><input type="time" id="c-hora" step="900"></div>
+    </div>
+    <label for="c-dur">Duración</label>
+    <select id="c-dur"><option value="15">15 minutos</option><option value="30" selected>30 minutos</option>
+     <option value="45">45 minutos</option><option value="60">1 hora</option></select>
+    <div class="error" id="e-cita" role="alert"></div>
+    <button class="btn" id="b-cita">Agendar cita</button>
+   </div>
+  </section>
+
+  <!-- CITAS -->
+  <section id="v-citas" class="oculto">
+   <div class="encabezado-vista">
+     <h1>Citas</h1>
+     <p class="sub">Las citas canceladas no se borran: puede reactivarlas con “Deshacer”.</p>
+   </div>
+   <label for="f-clinica">Mostrar</label>
+   <select id="f-clinica"><option value="">Todas las clínicas</option></select>
+   <div id="lista-citas"></div>
+  </section>
+
+  <!-- PACIENTES -->
+  <section id="v-pacientes" class="oculto">
+   <div class="encabezado-vista">
+     <h1>Pacientes</h1>
+     <p class="sub">Registre a un paciente nuevo. Nombre y fecha de nacimiento son obligatorios.</p>
+   </div>
+   <div class="card">
+    <label for="p-nombre">Nombre completo</label><input id="p-nombre" autocomplete="off">
+    <div class="fila">
+     <div><label for="p-nac">Fecha de nacimiento</label><input type="date" id="p-nac"></div>
+     <div><label for="p-tipo">Documento</label>
+      <select id="p-tipo"><option value="cedula">Cédula</option><option value="pasaporte">Pasaporte</option>
+       <option value="ninguno">Todavía no tiene</option></select></div>
+    </div>
+    <div id="p-doc-box"><label for="p-doc">Número de documento</label><input id="p-doc" inputmode="numeric" autocomplete="off"></div>
+    <div class="fila">
+     <div><label for="p-tel">Teléfono (opcional)</label><input id="p-tel" inputmode="tel"></div>
+     <div><label for="p-cor">Correo (opcional)</label><input id="p-cor" inputmode="email"></div>
+    </div>
+    <label for="p-resp">Teléfono de un familiar o tutor (opcional)</label><input id="p-resp" inputmode="tel">
+    <div class="error" id="e-pac" role="alert"></div>
+    <button class="btn" id="b-pac">Guardar paciente</button>
+    <button class="btn sec oculto" id="b-pac-igual">Es otra persona: crear igual</button>
+   </div>
+   <div id="lista-pac"></div>
+  </section>
+ </main>
+</div>
+<div id="toast" class="oculto"></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sinTildes = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+let datos = {clinicas: [], medicos: [], pacientes: [], citas: []};
+
+/* ---------- portada <-> sistema ---------- */
+function abrirSistema(vista = 'nueva') {
+  $('#vista-portada').classList.add('oculto');
+  $('#vista-sistema').classList.remove('oculto');
+  document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', x.dataset.v === vista));
+  ['nueva', 'citas', 'pacientes'].forEach(v => $('#v-' + v).classList.toggle('oculto', v !== vista));
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  cargar();
+}
+function volverPortada() {
+  $('#vista-sistema').classList.add('oculto');
+  $('#vista-portada').classList.remove('oculto');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+$('#b-agenda-ahora').onclick = () => abrirSistema('nueva');
+$('#b-volver-portada').onclick = volverPortada;
+
+async function api(ruta, cuerpo) {
+  let r, j;
+  try {
+    r = await fetch(ruta, cuerpo === undefined ? {} : {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({...cuerpo, usuario: $('#usuario').value})});
+    j = await r.json();
+  } catch (e) {
+    throw {mensaje: 'No hay conexión con el sistema. Lo que escribió sigue en pantalla: intente de nuevo en un momento.'};
+  }
+  if (!r.ok) throw {mensaje: j.error || 'Algo salió mal. Intente de nuevo.', codigo: j.codigo};
+  return j;
+}
+
+let tt;
+function aviso(texto, accion) {
+  const t = $('#toast'); t.innerHTML = `<span>${esc(texto)}</span>`;
+  if (accion) { const b = document.createElement('button'); b.textContent = accion.texto; b.onclick = () => { t.classList.add('oculto'); accion.fn(); }; t.append(b); }
+  t.classList.remove('oculto'); clearTimeout(tt); tt = setTimeout(() => t.classList.add('oculto'), accion ? 12000 : 4000);
+}
+
+/* ---------- navegación ---------- */
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => {
+  document.querySelectorAll('nav button').forEach(x => x.classList.toggle('on', x === b));
+  ['nueva', 'citas', 'pacientes'].forEach(v => $('#v-' + v).classList.toggle('oculto', v !== b.dataset.v));
+  cargar();
+});
+
+/* ---------- datos ---------- */
+async function cargar() {
+  try { datos = await api('/api/datos'); } catch (e) { return aviso(e.mensaje); }
+  pintarSelects(); pintarCitas(); pintarPacientes();
+}
+
+function pintarSelects() {
+  const sel = (id, items, ph) => { const el = $(id), v = el.value;
+    el.innerHTML = (ph ? `<option value="">${ph}</option>` : '') + items.map(i => `<option value="${i.id}">${esc(i.nombre)}</option>`).join('');
+    if ([...el.options].some(o => o.value === v)) el.value = v; };
+  filtrarPacientes();
+  sel('#c-medico', datos.medicos, 'Elija un médico'); sel('#c-clinica', datos.clinicas, 'Elija una clínica');
+  const f = $('#f-clinica'), v = f.value;
+  f.innerHTML = '<option value="">Todas las clínicas</option>' + datos.clinicas.map(c => `<option>${esc(c.nombre)}</option>`).join('');
+  f.value = v;
+  $('#c-fecha').min = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+}
+
+function filtrarPacientes() {
+  const q = sinTildes($('#buscar').value.trim()), el = $('#c-paciente'), v = el.value;
+  const lista = datos.pacientes.filter(p => sinTildes(p.nombre).includes(q));
+  el.innerHTML = '<option value="">Elija un paciente</option>' + lista.map(p =>
+    `<option value="${p.id}">${esc(p.nombre)} · ${esc(p.fecha_nacimiento)}</option>`).join('');
+  if (lista.some(p => String(p.id) === v)) el.value = v; else if (lista.length === 1) el.value = lista[0].id;
+}
+$('#buscar').oninput = filtrarPacientes;
+
+/* ---------- agendar ---------- */
+$('#b-cita').onclick = async () => {
+  const b = $('#b-cita'), e = $('#e-cita'); e.textContent = ''; b.disabled = true;
+  try {
+    await api('/api/citas', {paciente_id: $('#c-paciente').value, medico_id: $('#c-medico').value,
+      clinica_id: $('#c-clinica').value, fecha: $('#c-fecha').value, hora: $('#c-hora').value, duracion: $('#c-dur').value});
+    aviso('✔ Cita agendada'); $('#c-hora').value = ''; await cargar();
+  } catch (x) { e.textContent = x.mensaje; }
+  b.disabled = false;
+};
+
+/* ---------- lista de citas ---------- */
+function pintarCitas() {
+  const filtro = $('#f-clinica').value, cont = $('#lista-citas');
+  const citas = datos.citas.filter(c => !filtro || c.clinica === filtro);
+  if (!citas.length) { cont.innerHTML = '<div class="vacio">No hay citas próximas.</div>'; return; }
+  let dia = '', html = '';
+  for (const c of citas) {
+    const d = new Date(c.inicio), clave = c.inicio.slice(0, 10);
+    if (clave !== dia) { dia = clave; html += `<div class="dia">${esc(d.toLocaleDateString('es-EC', {weekday: 'long', day: 'numeric', month: 'long'}))}</div>`; }
+    const hora = c.inicio.slice(11, 16), cancel = c.estado === 'cancelada';
+    html += `<div class="card cita ${cancel ? 'cancelada' : ''}"><div class="hora">${hora}</div>
+      <div class="info"><b>${esc(c.paciente)}</b>${cancel ? '<span class="chip">Cancelada</span>' : ''}
+      <small>${esc(c.medico)} · ${esc(c.clinica)}</small></div>
+      ${cancel ? `<button class="chico ok" data-a="deshacer" data-id="${c.id}">Deshacer</button>`
+               : `<button class="chico peligro" data-a="cancelar" data-id="${c.id}">Cancelar cita</button>`}</div>`;
+  }
+  cont.innerHTML = html;
+}
+$('#f-clinica').onchange = pintarCitas;
+$('#lista-citas').onclick = async ev => {
+  const b = ev.target.closest('button[data-a]'); if (!b) return;
+  const id = b.dataset.id, accion = b.dataset.a;
+  if (accion === 'cancelar' && !confirm('¿Seguro que desea cancelar esta cita?\n(Podrá deshacerlo después.)')) return;
+  try {
+    const r = await api(`/api/citas/${id}/${accion}`, {});
+    aviso(r.mensaje, accion === 'cancelar' ? {texto: 'Deshacer', fn: () => accionCita(id, 'deshacer')} : null);
+  } catch (x) { aviso(x.mensaje); }
+  cargar();
+};
+async function accionCita(id, accion) {
+  try { aviso((await api(`/api/citas/${id}/${accion}`, {})).mensaje); } catch (x) { aviso(x.mensaje); }
+  cargar();
+}
+
+/* ---------- pacientes ---------- */
+$('#p-tipo').onchange = () => $('#p-doc-box').classList.toggle('oculto', $('#p-tipo').value === 'ninguno');
+async function guardarPaciente(confirmar) {
+  const e = $('#e-pac'); e.textContent = ''; $('#b-pac-igual').classList.add('oculto');
+  $('#b-pac').disabled = true;
+  try {
+    await api('/api/pacientes', {nombre: $('#p-nombre').value, fecha_nacimiento: $('#p-nac').value, tipo_doc: $('#p-tipo').value,
+      documento: $('#p-doc').value, telefono: $('#p-tel').value, correo: $('#p-cor').value,
+      contacto_responsable: $('#p-resp').value, confirmar_homonimo: confirmar});
+    ['nombre', 'nac', 'doc', 'tel', 'cor', 'resp'].forEach(k => $('#p-' + k).value = '');
+    aviso('✔ Paciente registrado'); await cargar();
+  } catch (x) {
+    e.textContent = x.mensaje;
+    if (x.codigo === 'homonimo') $('#b-pac-igual').classList.remove('oculto');
+  }
+  $('#b-pac').disabled = false;
+}
+$('#b-pac').onclick = () => guardarPaciente(false);
+$('#b-pac-igual').onclick = () => guardarPaciente(true);
+function pintarPacientes() {
+  $('#lista-pac').innerHTML = '<div class="dia">Pacientes registrados</div>' + (datos.pacientes.map(p =>
+    `<div class="card"><b>${esc(p.nombre)}</b><small style="display:block;color:var(--muted)">Nació el ${esc(p.fecha_nacimiento)}
+     · ${p.tipo_doc === 'ninguno' ? 'sin documento' : esc(p.tipo_doc) + ' ' + esc(p.documento)}</small></div>`).join('') || '<div class="vacio">Aún no hay pacientes.</div>');
+}
+</script>
+</body>
+</html>
